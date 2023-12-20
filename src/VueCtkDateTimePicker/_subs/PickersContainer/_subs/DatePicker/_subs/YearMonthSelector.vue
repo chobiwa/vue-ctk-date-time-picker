@@ -5,6 +5,28 @@
   >
     <div class="flex justify-content-right">
       <CustomButton
+        v-if="!isMonthMode"
+        :color="dark ? '#757575' : '#424242'"
+        :dark="dark"
+        with-border
+        @click="goBackYears"
+      >
+        <span class="fs-16">
+          &lt;
+        </span>
+      </CustomButton>
+      <CustomButton
+        v-if="!isMonthMode"
+        :color="dark ? '#757575' : '#424242'"
+        :dark="dark"
+        with-border
+        @click="goForwardYears"
+      >
+        <span class="fs-16">
+          >
+        </span>
+      </CustomButton>
+      <CustomButton
         :color="dark ? '#757575' : '#424242'"
         :dark="dark"
         with-border
@@ -99,6 +121,12 @@
       getYears () {
         this.months = null
         this.years = ArrayRange(this.month.year - 7, this.month.year + 7)
+      },
+      goBackYears () {
+        this.years = ArrayRange(this.years[0] - 15, this.years[0] - 1)
+      },
+      goForwardYears () {
+        this.years = ArrayRange(this.years[this.years.length - 1] + 1, this.years[this.years.length - 1] + 15)
       },
       selectMonth (monthNumber) {
         this.$emit('input', { month: monthNumber, year: this.currentYear })
